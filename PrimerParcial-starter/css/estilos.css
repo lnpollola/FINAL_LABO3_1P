@@ -1,0 +1,15 @@
+.container {
+    position: relative;
+    text-align: left;
+    color: white;
+}
+
+
+
+/* Top left text */
+.top-left {
+    position: absolute;
+    top: 8px;
+    left: 16px;
+}
+

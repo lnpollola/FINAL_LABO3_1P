@@ -6,9 +6,9 @@ window.onload = asignarEventos;
 
 function asignarEventos() {
 
-    btnAlta.onclick = function () {
-        ejecutarTransaccion("Mostrar");
-    }
+    // btnAlta.onclick = function () {
+        // ejecutarTransaccion("Mostrar");
+    // }
 
     ejecutarTransaccion("actualizarLista");
 
