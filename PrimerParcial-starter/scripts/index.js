@@ -10,31 +10,28 @@ $(document).ready(function () {
   
 jqueryObj.get("http://localhost:3000/traer?collection=heroes",function (data, status) {
 
-        
-        console.log(status);
-        console.log(data);
         var personajesCompleto = data.data;
-       
-            // var cuerpoTablaHTML = document.getElementById('tCuerpo');
-            var tBodyTable = $('#tBodyTable')[0];
-            // var tBodyTable = $('#tBodyTable').get(0); //otra forma
-
-            var seccionPersonajes = "";
+        var tBodyTable = $('#tBodyTable')[0];
+         
+        var seccionPersonajes = "";
             
 
-            for(var i=0; i< personajesCompleto.length; i++)
-            {
+        for(var i=0; i< personajesCompleto.length; i++)
+        {
+        
+            seccionPersonajes += "<tr><td>"+ personajesCompleto[i].id       + "</td>" +
+                                        "<td>" +      personajesCompleto[i].nombre   + "</td>" +
+                                        "<td>" +      personajesCompleto[i].apellido + "</td>" +
+                                        "<td>" +      personajesCompleto[i].alias    + "</td>" +
+                                        "<td>" +      personajesCompleto[i].edad    + "</td>"+
+                                        "<td>" +      personajesCompleto[i].lado    + "</td>"+
+                                "</tr>" ;
+        
+            tBodyTable.innerHTML = seccionPersonajes;
+        }
+        transicionSpinner();
+        document.getElementById("divTable").style.display='block';
 
-                seccionPersonajes += "<tr><td>"+ personajesCompleto[i].id       + "</td>" +
-                                          "<td>" +      personajesCompleto[i].nombre   + "</td>" +
-                                          "<td>" +      personajesCompleto[i].apellido + "</td>" +
-                                          "<td>" +      personajesCompleto[i].alias    + "</td>" +
-                                          "<td>" +      personajesCompleto[i].edad    + "</td>"+
-                                          "<td>" +      personajesCompleto[i].lado    + "</td>"+
-                                 "</tr>" ;
-
-                tBodyTable.innerHTML = seccionPersonajes;
-            }
     } )//fin $.get
    
 })

@@ -8,3 +8,13 @@ function mostrarFormulario() {
     //contructor de objeto Personaje
     console.log("estoy en mostrar formulario")
 }
+
+
+function transicionSpinner() {
+    
+       
+    document.getElementById("spinner").style.display = "none";
+
+
+    // $(".divoculto").hide();
+}
