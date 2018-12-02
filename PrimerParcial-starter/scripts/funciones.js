@@ -6,8 +6,10 @@ var PersonajeGlobal = { "id":"","nombre":"","apellido":"","apellido":"","alias":
 
 function mostrarFormulario() {
     //contructor de objeto Personaje
-    console.log("estoy en mostrar formulario")
+    console.log("estoy en mostrar formulario");
+    
 }
+
 
 
 function transicionSpinner() {
