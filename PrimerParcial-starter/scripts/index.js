@@ -2,13 +2,52 @@ var lista;
 const server_url = "http://localhost:3000/";
 var xhr;
 
+var jqueryObj = $;
+
+
+$(document).ready(function () {
+    
+  
+jqueryObj.get("http://localhost:3000/traer?collection=heroes",function (data, status) {
+
+        
+        console.log(status);
+        console.log(data);
+        var personajesCompleto = data;
+       
+            // var cuerpoTablaHTML = document.getElementById('tCuerpo');
+            var tBodyTable = $('#tBodyTable')[0];
+            // var tBodyTable = $('#tBodyTable').get(0); //otra forma
+
+            var seccionPersonajes = "";
+            
+
+            for(var i=0; i< personajesCompleto.length; i++)
+            {
+
+                seccionPersonajes += "<tr>  <td hidden>"+ personajesCompleto[i].id       + "</td>" +
+                                          "<td>" +      personajesCompleto[i].nombre   + "</td>" +
+                                          "<td>" +      personajesCompleto[i].apellido + "</td>" +
+                                          "<td>" +      personajesCompleto[i].alias    + "</td>" +
+                                          "<td>" +      personajesCompleto[i].edad    + "</td>"+
+                                          "<td>" +      personajesCompleto[i].lado    + "</td>"+
+                                 "</tr>" ;
+
+                tBodyTable.innerHTML = seccionPersonajes;
+            }
+    } )//fin $.get
+   
+})
+
 window.onload = asignarEventos;
 
 function asignarEventos() {
 
-    // btnAlta.onclick = function () {
-        // ejecutarTransaccion("Mostrar");
-    // }
+    var btnAlta = document.getElementById("btnAlta");
+
+    btnAlta.onclick = function () {
+        ejecutarTransaccion("Mostrar");
+    }
 
     ejecutarTransaccion("actualizarLista");
 
@@ -16,7 +55,12 @@ function asignarEventos() {
 
 function Personaje(id, nombre, apellido, alias, edad, lado) {
     //contructor de objeto Personaje
-
+    this.id= id;
+    this.nombre= nombre;
+    this.apellido = apellido;
+    this.alias = alias;
+    this.edad = edad;
+    this.lado = lado;
 }
 
 function traerIdHeroe(e) {
@@ -59,9 +103,16 @@ function modificarPersonaje() {
 
 }
 
+
 function traerListaHeroes(callback) {
     //ESTA FUNCION RECIBE COMO PARAMETRO UN CALLBACK, POR SI SE QUIERE USAR 
-    //PARA REFRESCAR LA TABLA A LA VUELTA DE LA PETICION AL SERVIDOR
+     //PARA REFRESCAR LA TABLA A LA VUELTA DE LA PETICION AL SERVIDOR
+
+     
+    
+
+
+    
     //VER EN CONTROLADOR.JS LA FUNCION ejecutarTransaccion PARA case "actualizarLista"
 
 }
