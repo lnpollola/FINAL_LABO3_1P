@@ -13,7 +13,7 @@ jqueryObj.get("http://localhost:3000/traer?collection=heroes",function (data, st
         
         console.log(status);
         console.log(data);
-        var personajesCompleto = data;
+        var personajesCompleto = data.data;
        
             // var cuerpoTablaHTML = document.getElementById('tCuerpo');
             var tBodyTable = $('#tBodyTable')[0];
@@ -25,7 +25,7 @@ jqueryObj.get("http://localhost:3000/traer?collection=heroes",function (data, st
             for(var i=0; i< personajesCompleto.length; i++)
             {
 
-                seccionPersonajes += "<tr>  <td hidden>"+ personajesCompleto[i].id       + "</td>" +
+                seccionPersonajes += "<tr><td>"+ personajesCompleto[i].id       + "</td>" +
                                           "<td>" +      personajesCompleto[i].nombre   + "</td>" +
                                           "<td>" +      personajesCompleto[i].apellido + "</td>" +
                                           "<td>" +      personajesCompleto[i].alias    + "</td>" +
