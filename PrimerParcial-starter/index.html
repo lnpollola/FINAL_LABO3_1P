@@ -25,6 +25,17 @@
     <title>ABM SuperHeroes</title>
 </head>
 
+<!-- ERROR modal -->
+<div class="modal fade" id="modalERROR" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-sm">
+    <div class="modal-content">
+            <div id="error" class="alert alert-danger" role="alert">ERROR CRITICO</div>
+            <p>ACA VA LA DESCRIPCIÓN DEL ERROR</p>
+    </div>
+       
+  </div>
+</div>
+
 <body>
     <!-- HEADER -->
     <div class="container">
@@ -110,25 +121,25 @@
 
                             
                             <div class="form-group row">
-                            <label for="edadHeroe" class="col-sm-2 col-form-label">ALIAS</label>
+                            <label for="edadHeroe" class="col-sm-2 col-form-label">Edad</label>
                             <div class="col-sm-10">
                                 <input type="number" class="form-control" id="edadHeroe" placeholder="EDAD">
                             </div>
                             </div>
-                                                       
+
                             <fieldset class="form-group">
                               <div class="row">
                                 <legend class="col-form-label col-sm-2 pt-0">LADO</legend>
                                 <div class="col-sm-10">
                                   <div class="form-check">
-                                    <input class="form-check-input" type="radio" name="gridRadios" id="gridRadios1" value="option1" checked>
-                                    <label class="form-check-label" for="gridRadios1">
+                                    <input class="form-check-input" type="radio" name="gridRadios" id="ladoHeroe" value="Heroe" checked>
+                                    <label class="form-check-label" for="ladoHeroe">
                                       HÉROE
                                     </label>
                                   </div>
                                   <div class="form-check">
-                                    <input class="form-check-input" type="radio" name="gridRadios" id="gridRadios2" value="option2">
-                                    <label class="form-check-label" for="gridRadios2">
+                                    <input class="form-check-input" type="radio" name="gridRadios" id="ladoHeroe" value="Villano">
+                                    <label class="form-check-label" for="ladoHeroe">
                                       VILLANO
                                     </label>
                                   </div>
@@ -138,33 +149,7 @@
 
                     </form>
 
-                <!-- <p id="Pnombre">Nombre:</p>
-                <input type="text" id="nombreA" placeholder="Ingrese Nombre..."style="text-align:center">
-                <br><br> -->
-            
-                <!-- INPUT Apellido -->
-                <!-- <p id="Papellido">Apellido:</p>
-                <input type="text" id="apellidoA" placeholder="Ingrese Apellido..."style="text-align:center">
-                <br><br> -->
-                <!-- INPUT Fecha -->
-                <!-- <p id="PfechaA">Fecha:</p>
-                <input type="date" id="fechaA" style="text-align:center">
-                <br><br> -->
-                
-                <!-- SELECT SEXO-->
-                <!-- <label id=labelSexoA for="txtSexo">Sexo:</label><br>
-                <input type="radio" class="radioC" name="radFemenino" id="radFemeninoA">Femenino<br>
-                <input type="radio" class="radioC" name="radMasculino" id="radMasculinoA">Masculino<br> -->
-            
-                <!-- <br> -->
-                <!-- <p id="Pfile">Ingrese avatar:</p>
-                <input type="file" id="inputImgA" accept="image/*" required> -->
-                <!-- <br><br> -->
-    
-<!--                
-                    
-                </button> -->
-            </div>
+             </div>
             <div class="modal-footer">
               <button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
               <button type="button" class="btn btn-success" id="btnAgregarConfirm">Agregar 
@@ -173,10 +158,6 @@
         </div>
       </div>
     
-
-
-
-
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>

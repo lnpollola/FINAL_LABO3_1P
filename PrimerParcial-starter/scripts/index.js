@@ -25,6 +25,8 @@ function asignarEventos() {
         ejecutarTransaccion("Alta");
     });
 
+   
+
 }
 
 function Personaje(id, nombre, apellido, alias, edad, lado) {
@@ -53,44 +55,40 @@ function altaPersonaje() {
 //genero un nuevo "Personaje", y lo inserto
 
     var flag = true;
-    var nombreNuevo = document.getElementById("nombreA").value;
-    var apellidoNuevo =document.getElementById("apellidoA").value;
-    var fechaNueva = document.getElementById("fechaA").value;
 
-    var sexoNuevo;
+    var idHeroe         =document.getElementById("idHeroe").value;
+    var nombreHeroe     =document.getElementById("nombreHeroe").value;
+    var apellidoHeroe   =document.getElementById("apellidoHeroe").value;
+    var aliasHeroe      =document.getElementById("aliasHeroe").value;
+    var edadHeroe       =document.getElementById("edadHeroe").value;
+    var ladoHeroe       =document.getElementById("ladoHeroe").value;
+
+
+    nuevoPersonaje = new Personaje (
+      idHeroe      ,
+      nombreHeroe  ,
+      apellidoHeroe,
+      aliasHeroe   ,
+      edadHeroe    ,
+      ladoHeroe    
+    )
 
     // VALIDO QUE AMBOS CAMPOS TENGAN MAS DE 3 CARACTERES
-    if (nombreNuevo.length < 3 || apellidoNuevo.length < 3) {
+    if (nombreHeroe.length < 3 || apellidoHeroe.length < 3) {
         alert("El campo debe tener mas de 3 c. ");
         flag= false;
     }
-
-
-
-    //VALIDO QUE SELECCIONEN UNO DE LOS DOS SEXOS
-    if (document.getElementById("radMasculinoA").checked && document.getElementById("radFemeninoA").checked ||
-    (document.getElementById("radMasculinoA").checked == false && document.getElementById("radFemeninoA").checked == false )
-    )
-    {
-
-        alert("Error, se debe seleccionar un sexo.");
-        flag=false;
-    } 
-    else if(document.getElementById("radFemeninoA").checked) {
-
-        sexoNuevo = "Female";
-       
-
-    }
-    else{
-        sexoNuevo = "Male"; 
-    }
-
-
+    
     if(flag== true && confirm("Confirma agregar persona?"))
     {
+
         ejecutarTransaccion("Insertar", nuevoPersonaje);
      
+    }
+    else 
+    {
+        $('#modalERROR').modal('show');
+
     }
 
 
@@ -158,26 +156,6 @@ function traerListaHeroes(callback) {
 function insertarHeroe(heroe) {
 
     // Acá va el código de la peticion ajax para insertar el nuevo heroe (POST)
-    
-
-    heroe = new Personaje (
-        heroe.id,
-        heroe.nombre, 
-        heroe.apellido,
-        heroe.alias,
-        heroe.edad,
-        heroe.lado 
-    )
-
-    // heroe = { 
-    //           "id"           :heroe.id,
-    //           "nombre"       :heroe.nombre, 
-    //           "apellido"     :heroe.apellido,
-    //           "alias"        :heroe.alias,
-    //           "edad"         :heroe.edad,
-    //           "lado"         :heroe.lado 
-    //         };
-
     var data = {
         "collection":"heroes",
         "heroe": heroe
@@ -222,4 +200,21 @@ function transicionSpinner() {
 
 
     // $(".divoculto").hide();
+}
+
+
+function transicion() {
+    
+    document.getElementById("spinner").style.display = "block";
+    if (xml.readyState ==4) {
+        if (xml.status==200) {
+             alert("Satisfactorio.");
+            // document.getElementById("modal-body").style.visibility ="hidden";
+            $('#exampleModalCenter').modal('hide'); 
+            location.reload();
+            
+            
+        } else{document.getElementById("spinner").style.display = "none";}
+        
+    }
 }
