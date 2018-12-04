@@ -10,9 +10,9 @@ function asignarEventos() {
 
     var btnAlta = document.getElementById("btnAlta");
 
-    btnAlta.onclick = function () {
-        ejecutarTransaccion("Mostrar");
-    }
+    // btnAlta.onclick = function () {
+    //     ejecutarTransaccion("Mostrar");
+    // }
 
     ejecutarTransaccion("actualizarLista");
 

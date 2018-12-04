@@ -35,7 +35,9 @@
 
         <!-- FOOTER DEL HEADER -->
         <div  class="footer"> 
-            <button type="button" id="btnAlta" class="btn btn-outline-dark">Agregar HÉROE</button>
+                <button type="button" class="btn btn-outline-dark" data-toggle="modal" data-target="#exampleModalCenter">
+                        Agregar HÉROE
+                  </button>
         </div>
     </div>
 
@@ -64,6 +66,54 @@
         </div>
     </div>
     <!-- </div> -->
+    
+  
+      <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="exampleModalLongTitle">Agregar HÉROE</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+
+                <p id="Pnombre">Nombre:</p>
+                <input type="text" id="nombreA" placeholder="Ingrese Nombre..."style="text-align:center">
+                <br><br>
+                <!-- INPUT Apellido -->
+                <p id="Papellido">Apellido:</p>
+                <input type="text" id="apellidoA" placeholder="Ingrese Apellido..."style="text-align:center">
+                <br><br>
+                <!-- INPUT Fecha -->
+                <p id="PfechaA">Fecha:</p>
+                <input type="date" id="fechaA" style="text-align:center">
+                <br><br>
+                
+                <!-- SELECT SEXO-->
+                <label id=labelSexoA for="txtSexo">Sexo:</label><br>
+                <input type="radio" class="radioC" name="radFemenino" id="radFemeninoA">Femenino<br>
+                <input type="radio" class="radioC" name="radMasculino" id="radMasculinoA">Masculino<br>
+            
+                <br>
+                <!-- <p id="Pfile">Ingrese avatar:</p>
+                <input type="file" id="inputImgA" accept="image/*" required> -->
+                <br><br>
+    
+               
+                    
+                </button>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
+              <button type="button" class="btn btn-success" id="btnAgregarConfirm">Agregar 
+            </div>
+          </div>
+        </div>
+      </div>
+
+
 
 
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>

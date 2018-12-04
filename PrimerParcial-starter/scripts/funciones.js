@@ -6,11 +6,16 @@ var PersonajeGlobal = { "id":"","nombre":"","apellido":"","apellido":"","alias":
 
 function mostrarFormulario() {
     //contructor de objeto Personaje
-    console.log("estoy en mostrar formulario");
+    // console.log("estoy en mostrar formulario");
+    // document.getElementById("divOculto2").style.display = "block";
+
     
 }
 
-
+    $("#btnAgregarConfirm").click(function() { 
+        agregarPersona();
+        
+    });
 
 function transicionSpinner() {
     
