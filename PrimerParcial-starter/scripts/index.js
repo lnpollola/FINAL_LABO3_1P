@@ -2,19 +2,28 @@ var lista;
 const server_url = "http://localhost:3000/";
 var xhr;
 var jqueryObj = $;
+var xml = new XMLHttpRequest();
+
+//Creo un Héroe Global para manejar datos
+var heroeGlobal = { "id":"","nombre":"","apellido":"","alias":"","edad":"","lado":"", "active":"", "created_dttm":"" }
+
 
 
 window.onload = asignarEventos;
 
 function asignarEventos() {
 
-    var btnAlta = document.getElementById("btnAlta");
+    // var btnAlta = document.getElementById("btnAlta");
 
     // btnAlta.onclick = function () {
     //     ejecutarTransaccion("Mostrar");
     // }
 
     ejecutarTransaccion("actualizarLista");
+
+    $("#btnAgregarConfirm").click(function() { 
+        ejecutarTransaccion("Alta");
+    });
 
 }
 
@@ -43,7 +52,48 @@ function traerIdHeroe(e) {
 function altaPersonaje() {
 //genero un nuevo "Personaje", y lo inserto
 
-    ejecutarTransaccion("Insertar", nuevoPersonaje);
+    var flag = true;
+    var nombreNuevo = document.getElementById("nombreA").value;
+    var apellidoNuevo =document.getElementById("apellidoA").value;
+    var fechaNueva = document.getElementById("fechaA").value;
+
+    var sexoNuevo;
+
+    // VALIDO QUE AMBOS CAMPOS TENGAN MAS DE 3 CARACTERES
+    if (nombreNuevo.length < 3 || apellidoNuevo.length < 3) {
+        alert("El campo debe tener mas de 3 c. ");
+        flag= false;
+    }
+
+
+
+    //VALIDO QUE SELECCIONEN UNO DE LOS DOS SEXOS
+    if (document.getElementById("radMasculinoA").checked && document.getElementById("radFemeninoA").checked ||
+    (document.getElementById("radMasculinoA").checked == false && document.getElementById("radFemeninoA").checked == false )
+    )
+    {
+
+        alert("Error, se debe seleccionar un sexo.");
+        flag=false;
+    } 
+    else if(document.getElementById("radFemeninoA").checked) {
+
+        sexoNuevo = "Female";
+       
+
+    }
+    else{
+        sexoNuevo = "Male"; 
+    }
+
+
+    if(flag== true && confirm("Confirma agregar persona?"))
+    {
+        ejecutarTransaccion("Insertar", nuevoPersonaje);
+     
+    }
+
+
 }
 
 
@@ -94,6 +144,7 @@ function traerListaHeroes(callback) {
         
             tBodyTable.innerHTML = seccionPersonajes;
         }
+
         transicionSpinner();
         //CARGA DE TABLA INICIAL
         document.getElementById("divTable").style.display='block';
@@ -107,11 +158,42 @@ function traerListaHeroes(callback) {
 function insertarHeroe(heroe) {
 
     // Acá va el código de la peticion ajax para insertar el nuevo heroe (POST)
+    
+
+    heroe = new Personaje (
+        heroe.id,
+        heroe.nombre, 
+        heroe.apellido,
+        heroe.alias,
+        heroe.edad,
+        heroe.lado 
+    )
+
+    // heroe = { 
+    //           "id"           :heroe.id,
+    //           "nombre"       :heroe.nombre, 
+    //           "apellido"     :heroe.apellido,
+    //           "alias"        :heroe.alias,
+    //           "edad"         :heroe.edad,
+    //           "lado"         :heroe.lado 
+    //         };
+
     var data = {
         "collection":"heroes",
         "heroe": heroe
     }
     //AGREGAR CODIGO PARA INSERTAR EL HEROE
+    var spinner = document.getElementById("spinner");
+    spinner.style.visibility = "visible";
+
+    xml.open("POST","http://localhost:3000/agregar");
+    xml.setRequestHeader('Content-Type', 'application/json');
+
+   
+    xml.send(JSON.stringify(data));
+
+    xml.onreadystatechange = transicion();
+   
 }
 
 function eliminarHeroe(heroe) {
@@ -130,4 +212,14 @@ function modificarHeroe(heroe) {
         "heroe": heroe
     }
     //AGREGAR CODIGO PARA MODIFICAR EL HEROE
+}
+
+
+function transicionSpinner() {
+    
+       
+    document.getElementById("spinner").style.display = "none";
+
+
+    // $(".divoculto").hide();
 }
