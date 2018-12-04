@@ -46,17 +46,17 @@
 
         <!-- FOOTER DEL HEADER -->
         <div  class="footer"> 
-                <button type="button" class="btn btn-outline-dark" data-toggle="modal" data-target="#exampleModalCenter">
+                <button type="button" id="botonAgregarHeroe" class="btn btn-outline-dark" data-toggle="modal" data-target="#exampleModalCenter">
                         Agregar HÉROE
                   </button>
         </div>
-    </div>
+    <!-- </div> -->
 
-    <br>
+    <!-- <br> -->
  
 
     <!-- INICIO TABLA -->
-    <div class="container" >
+    <!-- <div class="container" > -->
             <div class="spinner" id="spinner" style="display: show">
                 </div>
 
@@ -89,7 +89,9 @@
               </button>
             </div>
             <div class="modal-body">
-                    <form>
+              <input class="form-control" type="text" value="Ultimo ID aún no disponible" id="ultimoIDinsertado"readonly>
+                <br>  
+                <form>
                             <div class="form-group row">
 
                               <label for="idHeroe" class="col-sm-2 col-form-label">ID</label>

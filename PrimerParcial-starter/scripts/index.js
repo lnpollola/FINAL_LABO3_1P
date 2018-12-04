@@ -13,11 +13,6 @@ window.onload = asignarEventos;
 
 function asignarEventos() {
 
-    // var btnAlta = document.getElementById("btnAlta");
-
-    // btnAlta.onclick = function () {
-    //     ejecutarTransaccion("Mostrar");
-    // }
 
     ejecutarTransaccion("actualizarLista");
 
@@ -25,7 +20,10 @@ function asignarEventos() {
         ejecutarTransaccion("Alta");
     });
 
-   
+    $("#botonAgregarHeroe").click(function() { 
+        traigoUltimoID();
+    });
+
 
 }
 
@@ -193,13 +191,10 @@ function modificarHeroe(heroe) {
 }
 
 
+
+//FUNCIONES PROPIAS
 function transicionSpinner() {
-    
-       
     document.getElementById("spinner").style.display = "none";
-
-
-    // $(".divoculto").hide();
 }
 
 
@@ -217,4 +212,25 @@ function transicion() {
         } else{document.getElementById("spinner").style.display = "none";}
         
     }
+}
+
+function traigoUltimoID()
+{
+    var target = event.target || event.srcElement;
+    var filas = target.parentNode.parentElement.getElementsByTagName("td");
+
+    
+    var ultimoIDPos = (filas.length)-6;
+
+    var ultimoID = filas[ultimoIDPos].innerHTML;
+
+    document.getElementById("ultimoIDinsertado").value= "Ultimo ID Insertado: "+ultimoID;
+
+    // var celdas = fila.getElementsByTagName("td");
+   
+    // usuarioGlobal.id= celdas[0].innerHTML;    
+    // document.getElementById("nombreE").value= celdas[1].innerHTML;
+    // document.getElementById("apellidoE").value=celdas[2].innerHTML;
+    // document.getElementById("fechaE").value=celdas[3].innerHTML;
+
 }
