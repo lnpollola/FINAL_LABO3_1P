@@ -73,11 +73,11 @@ function altaPersonaje() {
 
     // VALIDO QUE AMBOS CAMPOS TENGAN MAS DE 3 CARACTERES
     if (nombreHeroe.length < 3 || apellidoHeroe.length < 3) {
-        alert("El campo debe tener mas de 3 c. ");
+        // alert("El campo debe tener mas de 3 c. ");
         flag= false;
     }
     
-    if(flag== true && confirm("Confirma agregar persona?"))
+    if(flag== true && confirm("¿Confirma agregar persona?"))
     {
 
         ejecutarTransaccion("Insertar", nuevoPersonaje);
@@ -85,10 +85,12 @@ function altaPersonaje() {
     }
     else 
     {
+        $('#exampleModalCenter').modal('hide'); 
         $('#modalERROR').modal('show');
-
+        
     }
 
+    $('#exampleModalCenter').modal('show'); 
 
 }
 
@@ -162,13 +164,21 @@ function insertarHeroe(heroe) {
     var spinner = document.getElementById("spinner");
     spinner.style.visibility = "visible";
 
-    xml.open("POST","http://localhost:3000/agregar");
+    xml.open("POST","http://localhost:3000/agregar",true);
+    // xml.onreadystatechange = transicion();
+    xml.onreadystatechange = function() {
+        if (xml.readyState == 4) {
+          transicion();
+        }
+      };
+
+    
     xml.setRequestHeader('Content-Type', 'application/json');
 
    
     xml.send(JSON.stringify(data));
 
-    xml.onreadystatechange = transicion();
+    
    
 }
 
@@ -201,15 +211,18 @@ function transicionSpinner() {
 function transicion() {
     
     document.getElementById("spinner").style.display = "block";
+    document.getElementById("divTable").style.display='none';
+
+    $('#exampleModalCenter').modal('hide'); 
     if (xml.readyState ==4) {
         if (xml.status==200) {
-             alert("Satisfactorio.");
+             alert( JSON.parse(xml.response).message );
             // document.getElementById("modal-body").style.visibility ="hidden";
             $('#exampleModalCenter').modal('hide'); 
-            location.reload();
-            
-            
-        } else{document.getElementById("spinner").style.display = "none";}
+            // location.reload();
+            traerListaHeroes();
+        } 
+        else{document.getElementById("spinner").style.display = "none";}
         
     }
 }
