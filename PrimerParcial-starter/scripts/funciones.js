@@ -1,14 +1,5 @@
 
-//LO HAGO CON MODALS
-// function mostrarFormulario() {
 
-    
-//     //contructor de objeto Personaje
-//     // console.log("estoy en mostrar formulario");
-//     // document.getElementById("divOculto2").style.display = "block";
-
-    
-// }
 
   
 

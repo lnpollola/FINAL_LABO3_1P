@@ -21,7 +21,16 @@ function asignarEventos() {
     });
 
     $("#botonAgregarHeroe").click(function() { 
+        document.getElementById("formAlta").reset();
         traigoUltimoID();
+    });
+
+    $("#cancelarForm").click(function() { 
+        document.getElementById("formAlta").reset();
+    }); 
+
+    $("#tBodyTable").click(function () {
+        ejecutarTransaccion("Mostrar");
     });
 
 
@@ -61,7 +70,6 @@ function altaPersonaje() {
     var edadHeroe       =document.getElementById("edadHeroe").value;
     var ladoHeroe       =document.getElementById("ladoHeroe").value;
 
-
     nuevoPersonaje = new Personaje (
       idHeroe      ,
       nombreHeroe  ,
@@ -73,22 +81,15 @@ function altaPersonaje() {
 
     // VALIDO QUE AMBOS CAMPOS TENGAN MAS DE 3 CARACTERES
     if (nombreHeroe.length < 3 || apellidoHeroe.length < 3) {
-        // alert("El campo debe tener mas de 3 c. ");
         flag= false;
     }
     
     if(flag== true && confirm("¿Confirma agregar persona?"))
-    {
-
-        ejecutarTransaccion("Insertar", nuevoPersonaje);
-     
-    }
-    else 
-    {
-        $('#exampleModalCenter').modal('hide'); 
-        $('#modalERROR').modal('show');
-        
-    }
+    {ejecutarTransaccion("Insertar", nuevoPersonaje);}
+    else {
+            $('#exampleModalCenter').modal('hide'); 
+            $('#modalERROR').modal('show');
+        }
 
     $('#exampleModalCenter').modal('show'); 
 
@@ -104,7 +105,6 @@ function eliminarPersonaje() {
     ejecutarTransaccion("Eliminar", heroe);
 
     //Aca va alguna animacion para cerrar el formulario
-
 }
 
 function modificarPersonaje() {
@@ -165,20 +165,19 @@ function insertarHeroe(heroe) {
     spinner.style.visibility = "visible";
 
     xml.open("POST","http://localhost:3000/agregar",true);
-    // xml.onreadystatechange = transicion();
+
     xml.onreadystatechange = function() {
         if (xml.readyState == 4) {
           transicion();
         }
       };
 
-    
     xml.setRequestHeader('Content-Type', 'application/json');
-
-   
     xml.send(JSON.stringify(data));
 
-    
+    document.getElementById("spinner").style.display = "block";
+    document.getElementById("divTable").style.display='none';
+    $('#exampleModalCenter').modal('hide'); 
    
 }
 
@@ -203,27 +202,38 @@ function modificarHeroe(heroe) {
 
 
 //FUNCIONES PROPIAS
+function mostrarFormulario()
+{
+    $('#exampleModalCenter').modal('show'); 
+
+    var target = event.target || event.srcElement;
+    fila = target.parentNode;
+    var celdas = fila.getElementsByTagName("td");
+
+    document.getElementById("idHeroe").value        = celdas[0].innerHTML;
+    document.getElementById("nombreHeroe").value    = celdas[1].innerHTML;
+    document.getElementById("apellidoHeroe").value  = celdas[2].innerHTML;
+    document.getElementById("aliasHeroe").value     = celdas[3].innerHTML;
+    document.getElementById("edadHeroe").value      = celdas[4].innerHTML;
+    document.getElementById("ladoHeroe").value      = celdas[5].innerHTML;
+}
+
+///SPINNER
 function transicionSpinner() {
     document.getElementById("spinner").style.display = "none";
 }
 
-
 function transicion() {
-    
-    document.getElementById("spinner").style.display = "block";
-    document.getElementById("divTable").style.display='none';
-
-    $('#exampleModalCenter').modal('hide'); 
-    if (xml.readyState ==4) {
-        if (xml.status==200) {
-             alert( JSON.parse(xml.response).message );
-            // document.getElementById("modal-body").style.visibility ="hidden";
-            $('#exampleModalCenter').modal('hide'); 
-            // location.reload();
+    if (xml.readyState ==4) 
+    {
+        if (xml.status==200) 
+        {
+            alert( JSON.parse(xml.response).message );
+            document.getElementById("formAlta").reset();
             traerListaHeroes();
         } 
-        else{document.getElementById("spinner").style.display = "none";}
-        
+        else
+        {document.getElementById("spinner").style.display = "none";}
     }
 }
 
@@ -232,18 +242,10 @@ function traigoUltimoID()
     var target = event.target || event.srcElement;
     var filas = target.parentNode.parentElement.getElementsByTagName("td");
 
-    
     var ultimoIDPos = (filas.length)-6;
-
     var ultimoID = filas[ultimoIDPos].innerHTML;
 
     document.getElementById("ultimoIDinsertado").value= "Ultimo ID Insertado: "+ultimoID;
-
-    // var celdas = fila.getElementsByTagName("td");
-   
-    // usuarioGlobal.id= celdas[0].innerHTML;    
-    // document.getElementById("nombreE").value= celdas[1].innerHTML;
-    // document.getElementById("apellidoE").value=celdas[2].innerHTML;
-    // document.getElementById("fechaE").value=celdas[3].innerHTML;
-
 }
+
+
