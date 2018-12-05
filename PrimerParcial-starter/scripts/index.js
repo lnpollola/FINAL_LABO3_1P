@@ -14,8 +14,6 @@ function asignarEventos() {
 
     ejecutarTransaccion("actualizarLista");
 
-   
-
     $("#botonAgregarHeroe").click(function() { 
         document.getElementById("formAlta").reset();
            
@@ -43,7 +41,7 @@ function asignarEventos() {
     });
 
     $("#btnModificar").click(function() { 
-        ejecutarTransaccion("Modificar");
+        ejecutarTransaccion("Modificacion");
     });
 
 
@@ -121,6 +119,7 @@ function eliminarPersonaje() {
     //2)Me traigo el heroe de la lista, haciendo una funcion de buscar, como por ejemplo:
     //var heroe = lista[buscarHeroe(lista, id)];
     //3)llamo a ejecutarTransaccion
+    heroe = heroeGlobal;
     ejecutarTransaccion("Eliminar", heroe);
 
     //Aca va alguna animacion para cerrar el formulario
@@ -129,7 +128,14 @@ function eliminarPersonaje() {
 function modificarPersonaje() {
     //agregar codigo que crea necesario
 
-    var personajeModificado = new Personaje(id, nombre, apellido, alias, edad, lado);
+    var personajeModificado = new Personaje(
+        heroeGlobal.id,   
+        document.getElementById("nombreHeroe").value   , 
+        document.getElementById("apellidoHeroe").value ,
+        document.getElementById("aliasHeroe").value    ,
+        document.getElementById("edadHeroe").value     ,
+        document.getElementById("ladoHeroe").value     
+    );
     ejecutarTransaccion("Modificar", personajeModificado);
     //animacion para cerrar formulario
 
@@ -206,6 +212,23 @@ function eliminarHeroe(heroe) {
         "id": heroe.id
     }
     //AGREGAR CODIGO PARA ELIMINAR EL HEROE
+    var spinner = document.getElementById("spinner");
+    spinner.style.visibility = "visible";
+
+    xml.open("POST","http://localhost:3000/eliminar",true);
+
+    xml.onreadystatechange = function() {
+        if (xml.readyState == 4) {
+          transicion();
+        }
+      };
+
+    xml.setRequestHeader('Content-Type', 'application/json');
+    xml.send(JSON.stringify(data));
+
+    document.getElementById("spinner").style.display = "block";
+    document.getElementById("divTable").style.display='none';
+    $('#exampleModalCenter').modal('hide'); 
 }
 
 function modificarHeroe(heroe) {
@@ -216,6 +239,23 @@ function modificarHeroe(heroe) {
         "heroe": heroe
     }
     //AGREGAR CODIGO PARA MODIFICAR EL HEROE
+    var spinner = document.getElementById("spinner");
+    spinner.style.visibility = "visible";
+
+    xml.open("POST","http://localhost:3000/modificar",true);
+
+    xml.onreadystatechange = function() {
+        if (xml.readyState == 4) {
+          transicion();
+        }
+      };
+
+    xml.setRequestHeader('Content-Type', 'application/json');
+    xml.send(JSON.stringify(data));
+
+    document.getElementById("spinner").style.display = "block";
+    document.getElementById("divTable").style.display='none';
+    $('#exampleModalCenter').modal('hide'); 
 }
 
 
