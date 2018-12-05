@@ -7,8 +7,6 @@ var xml = new XMLHttpRequest();
 //Creo un Héroe Global para manejar datos
 var heroeGlobal = { "id":"","nombre":"","apellido":"","alias":"","edad":"","lado":"", "active":"", "created_dttm":"" }
 
-
-
 window.onload = asignarEventos;
 
 function asignarEventos() {
@@ -16,18 +14,38 @@ function asignarEventos() {
 
     ejecutarTransaccion("actualizarLista");
 
+   
+
+    $("#botonAgregarHeroe").click(function() { 
+        document.getElementById("formAlta").reset();
+           
+        //QUITO BOTON DE AGREGAR
+        document.getElementById("cancelarForm").style.display='block';
+        document.getElementById("btnAgregarConfirm").style.display='block';
+        //ACTIVO BOTONES DE MODIFICAR Y ELIMINAR
+        document.getElementById("btnModificar").style.display='none';
+        document.getElementById("btnEliminar").style.display='none';
+
+        traigoUltimoID();
+    });
+
+    
+    $("#cancelarForm").click(function() { 
+        document.getElementById("formAlta").reset();
+    }); 
+
     $("#btnAgregarConfirm").click(function() { 
         ejecutarTransaccion("Alta");
     });
 
-    $("#botonAgregarHeroe").click(function() { 
-        document.getElementById("formAlta").reset();
-        traigoUltimoID();
+    $("#btnEliminar").click(function() { 
+        ejecutarTransaccion("Baja");
     });
 
-    $("#cancelarForm").click(function() { 
-        document.getElementById("formAlta").reset();
-    }); 
+    $("#btnModificar").click(function() { 
+        ejecutarTransaccion("Modificar");
+    });
+
 
     $("#tBodyTable").click(function () {
         ejecutarTransaccion("Mostrar");
@@ -59,8 +77,9 @@ function traerIdHeroe(e) {
 }
 
 function altaPersonaje() {
-//genero un nuevo "Personaje", y lo inserto
 
+
+    //genero un nuevo "Personaje", y lo inserto
     var flag = true;
 
     var idHeroe         =document.getElementById("idHeroe").value;
@@ -178,7 +197,7 @@ function insertarHeroe(heroe) {
     document.getElementById("spinner").style.display = "block";
     document.getElementById("divTable").style.display='none';
     $('#exampleModalCenter').modal('hide'); 
-   
+
 }
 
 function eliminarHeroe(heroe) {
@@ -210,12 +229,37 @@ function mostrarFormulario()
     fila = target.parentNode;
     var celdas = fila.getElementsByTagName("td");
 
+    //ARMO PERSONAJE
+    var idHeroe         =celdas[0].innerHTML;
+    var nombreHeroe     =celdas[1].innerHTML;
+    var apellidoHeroe   =celdas[2].innerHTML;
+    var aliasHeroe      =celdas[3].innerHTML;
+    var edadHeroe       =celdas[4].innerHTML;
+    var ladoHeroe       =celdas[5].innerHTML;
+
+    heroeGlobal = new Personaje (
+      idHeroe      ,
+      nombreHeroe  ,
+      apellidoHeroe,
+      aliasHeroe   ,
+      edadHeroe    ,
+      ladoHeroe    
+    )
+
     document.getElementById("idHeroe").value        = celdas[0].innerHTML;
     document.getElementById("nombreHeroe").value    = celdas[1].innerHTML;
     document.getElementById("apellidoHeroe").value  = celdas[2].innerHTML;
     document.getElementById("aliasHeroe").value     = celdas[3].innerHTML;
     document.getElementById("edadHeroe").value      = celdas[4].innerHTML;
     document.getElementById("ladoHeroe").value      = celdas[5].innerHTML;
+
+    //QUITO BOTON DE AGREGAR
+    document.getElementById("btnAgregarConfirm").style.display='none';
+    document.getElementById("cancelarForm").style.display='none';
+    //ACTIVO BOTONES DE MODIFICAR Y ELIMINAR
+    document.getElementById("btnModificar").style.display='block';
+    document.getElementById("btnEliminar").style.display='block';
+
 }
 
 ///SPINNER
